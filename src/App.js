@@ -2,8 +2,6 @@ import React from "react";
 import "./styles.css";
 import Paintball from "./Paintball";
 
-var classNames = require("classnames");
-
 class App extends React.Component {
   constructor(props) {
     super(props);
@@ -17,7 +15,6 @@ class App extends React.Component {
 
   componentDidMount() {
     window.addEventListener("click", e => this.onShootPaintball(e));
-    console.log("STATE IN component did mount", this.state)
   }
 
   onShootPaintball = e => {
@@ -28,16 +25,30 @@ class App extends React.Component {
       x: clientX,
       y: clientY,
       numShots: (state.numShots += 1),
-      shotCoordinates: [...state.shotCoordinates, [clientX, clientY]]
+      shotCoordinates: [
+        ...state.shotCoordinates,
+        [clientX, clientY, this.randomColor()]
+      ]
     });
-    console.log("STATE IN ON SHOOT PAINTBALL", this.state)
+  };
+
+  randomColor = () => {
+    let colors = ["blue", "black", "green", "orange", "purple", "red"];
+    let min = 0;
+    let max = 5;
+    let randNum = Math.floor(Math.random() * (max - min));
+    return colors[randNum];
   };
 
   render() {
     return (
       <div>
         {this.state.shotCoordinates.map(shotCoords => (
-          <Paintball x={shotCoords[0]} y={shotCoords[1]} />
+          <Paintball
+            x={shotCoords[0]}
+            y={shotCoords[1]}
+            color={shotCoords[2]}
+          />
         ))}
       </div>
     );
