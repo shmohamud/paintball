@@ -2,7 +2,7 @@ import React, { Component } from "react";
 var classNames = require("classnames");
 
 export default class Paintball extends Component {
-
+   
   render() {
     let spanClasses = classNames({
       paintball: true

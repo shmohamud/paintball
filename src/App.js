@@ -30,6 +30,18 @@ class App extends React.Component {
         [clientX, clientY, this.randomColor()]
       ]
     });
+    this.destroyPaintball();
+  };
+
+  destroyPaintball = () => {
+    setTimeout(() => {
+      let state = { ...this.state };
+      let shotCoordinates = state.shotCoordinates.slice(1);
+      this.setState({
+        ...state,
+        shotCoordinates: shotCoordinates
+      });
+    }, 5000);
   };
 
   randomColor = () => {
@@ -51,7 +63,7 @@ class App extends React.Component {
           />
         ))}
       </div>
-    );
+    )
   }
 }
 
