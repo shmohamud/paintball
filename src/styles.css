@@ -11,3 +11,12 @@
     top: 1em;
     right: 1em;
 }
+
+.target {
+    position:fixed;
+    height: 100px;
+    width: 100px;
+    border: solid 2px;
+    border-style: firebrick;
+    border-radius: 90px 90px 90px 90px;
+}

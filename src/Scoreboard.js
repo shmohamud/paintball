@@ -17,6 +17,10 @@ export default class Scoreboard extends Component {
             <Card.Text>
              {this.props.numShots}
             </Card.Text>
+            <Card.Title>Points</Card.Title>
+            <Card.Text>
+             {this.props.points}
+            </Card.Text>
             <Button onClick={this.props.resetGame}variant="primary">Reset</Button>
           </Card.Body>
         </Card>
