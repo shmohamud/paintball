@@ -1,6 +1,7 @@
 import React from "react";
 import "./styles.css";
 import Paintball from "./Paintball";
+import Scoreboard from './Scoreboard'
 
 class App extends React.Component {
   constructor(props) {
@@ -40,8 +41,8 @@ class App extends React.Component {
       this.setState({
         ...state,
         shotCoordinates: shotCoordinates
-      });
-    }, 5000);
+      })
+    }, 5000)
   };
 
   randomColor = () => {
@@ -51,6 +52,15 @@ class App extends React.Component {
     let randNum = Math.floor(Math.random() * (max - min));
     return colors[randNum];
   };
+
+  handleClickResetGame = () => {
+    let state = { ...this.state }
+    let shotCoordinates = []
+    this.setState({
+      ...state, numShots:-1,
+      shotCoordinates: shotCoordinates
+    })
+};
 
   render() {
     return (
@@ -62,6 +72,7 @@ class App extends React.Component {
             color={shotCoords[2]}
           />
         ))}
+        <Scoreboard numShots={this.state.numShots} resetGame={this.handleClickResetGame}/>
       </div>
     )
   }

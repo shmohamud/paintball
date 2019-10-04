@@ -21,3 +21,4 @@ export default class Paintball extends Component {
     );
   }
 }
+

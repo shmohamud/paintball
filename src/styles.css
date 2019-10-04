@@ -5,3 +5,9 @@
     border-radius: 50%;
     display: flex;
 }
+
+.scoreboard{
+    position: fixed;
+    top: 1em;
+    right: 1em;
+}
