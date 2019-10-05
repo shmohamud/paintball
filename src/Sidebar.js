@@ -1,12 +1,13 @@
 import React, { Component } from "react";
 import{Card, Button} from 'react-bootstrap'
 import "./styles.css";
+
 var classNames = require("classnames");
 
-export default class Scoreboard extends Component {
+export default class Sidebar extends Component {
   render() {
     let divClasses = classNames({
-        scoreboard: true
+        sidebar: true
       })
     return (
       <div className={divClasses}>
@@ -20,6 +21,10 @@ export default class Scoreboard extends Component {
             <Card.Title>Points</Card.Title>
             <Card.Text>
              {this.props.points}
+            </Card.Text>
+            <Card.Title>Ammo</Card.Title>
+            <Card.Text>
+             {this.props.ammo}
             </Card.Text>
             <Button onClick={this.props.resetGame}variant="primary">Reset</Button>
           </Card.Body>

@@ -1,30 +1,48 @@
 import React from "react";
 import "./styles.css";
 import Paintball from "./Paintball";
-import Scoreboard from "./Scoreboard";
+import Sidebar from "./Sidebar";
 import Target from "./Target";
-import Timer from "./Timer"
+import Timer from "./Timer";
 
 class App extends React.Component {
   state = {
+    ammunition: "O O O 0",
+    secondsRemaining: 15,
     x: 0,
     y: 0,
+    shotCoordinates: [],
+    targetCoordinates: ["20em", "35em"],
     numShots: 0,
     points: 0,
-    seconds:60,
-    shotCoordinates: [],
-    targetCoordinates: ["20em", "35em"]
+    levelSuccess: false,
+    levelFail:false
   };
 
   componentDidMount() {
     window.addEventListener("click", e => this.onShootPaintball(e));
   }
 
+  componentDidUpdate(prevProps, prevState){
+    if(prevState.points>=30 && prevState.levelSuccess===false){
+       alert("Level One Completed. Level two in 5....4....3......2......1...")
+       this.setState({levelSuccess:true, shots: this.state.shots + 1})
+       this.handleClickResetGame()
+      }
+    
+    if(prevState.ammunition.length === 0 && prevState.levelFail === false){
+        alert("Better luck next time!")
+        this.setState({levelFail:true})
+        this.handleClickResetGame()
+
+}
+  }
   onShootPaintball = e => {
     let { clientX, clientY } = e;
     let state = { ...this.state };
     this.setState({
       ...state,
+      ammunition: state.ammunition.split(" ").slice(1).join(" "),
       x: clientX,
       y: clientY,
       numShots: (state.numShots += 1),
@@ -43,8 +61,8 @@ class App extends React.Component {
       Math.floor(Math.random() * (max - min)).toString() + "em";
     const randNumRight =
       Math.floor(Math.random() * (max - min)).toString() + "em";
-    let state = { ...this.state };
-    let points = state.points + 10
+    const state = { ...this.state };
+    const points = state.points + 10;
     this.setState({
       targetCoordinates: [randNumTop, randNumRight],
       points: points,
@@ -78,13 +96,26 @@ class App extends React.Component {
   };
 
   handleClickResetGame = () => {
-    let state = { ...this.state };
+    const state = { ...this.state };
     this.setState({
       ...state,
       numShots: -1,
-      points:0,
-      shotCoordinates: []
+      points: 0,
+      shotCoordinates: [],
+      secondsRemaining: 15,
+      levelSuccess:false,
+      levelFail:false
     });
+  };
+
+  decrementSeconds = () => {
+    if (this.state.secondsRemaining) {
+      setTimeout(() => {
+        let { secondsRemaining } = this.state;
+        console.log(this.state.seconds, this.state);
+        this.setState(() => ({ secondsRemaining: secondsRemaining - 1 }));
+      }, 1000);
+    }
   };
 
   render() {
@@ -102,8 +133,14 @@ class App extends React.Component {
           right={this.state.targetCoordinates[1]}
           targetHit={this.targetHit}
         />
-        <Timer time={this.state.time}/>
-        <Scoreboard
+        <Timer
+          decrementSeconds={this.decrementSeconds}
+          seconds={this.state.secondsRemaining}
+          fail = {this.state.levelFailure}
+          success = {this.state.levelSuccess}
+        />
+        <Sidebar
+          ammo={this.state.ammunition}
           numShots={this.state.numShots}
           points={this.state.points}
           resetGame={this.handleClickResetGame}

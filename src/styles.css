@@ -1,15 +1,15 @@
 .paintball {
+    background-color: rgba(25, 155, 47, 0.938);
+    display: flex;
+    border-radius: 50%;
     height: 25px;
     width: 25px;
-    background-color: rgba(25, 155, 47, 0.938);
-    border-radius: 50%;
-    display: flex;
 }
 
-.scoreboard{
+.sidebar{
     position: fixed;
-    top: 1em;
     right: 1em;
+    top: 1em;
 }
 
 .target {
@@ -20,3 +20,14 @@
     border-style: firebrick;
     border-radius: 90px 90px 90px 90px;
 }
+
+.timer {
+    border: solid 2px;
+    border-style: black;
+    height: 22px;
+    position:fixed;
+    right: 50%;
+    top: 5%;
+    width: 35px;
+}
+
