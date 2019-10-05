@@ -45,7 +45,7 @@ class App extends React.Component {
       ammunition: state.ammunition.split(" ").slice(1).join(" "),
       x: clientX,
       y: clientY,
-      numShots: (state.numShots += 1),
+      numShots: (state.numShots + 1),
       shotCoordinates: [
         ...state.shotCoordinates.slice(),
         [clientX, clientY, this.setPaintColor()]
@@ -99,12 +99,13 @@ class App extends React.Component {
     const state = { ...this.state };
     this.setState({
       ...state,
-      numShots: -1,
+      numShots:0,
       points: 0,
       shotCoordinates: [],
       secondsRemaining: 15,
       levelSuccess:false,
-      levelFail:false
+      levelFail:false,
+      ammunition: "0 0 0 0"
     });
   };
 
