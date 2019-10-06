@@ -1,32 +1,23 @@
 import React from "react";
-import "./styles.css";
 import { Spinner } from "react-bootstrap";
+import "./styles.css";
 
 export default class Timer extends React.Component {
-  classNames = require("classnames");
-
-  componentDidMount() {
-    this.props.decrementSeconds();
-  }
-
+  
+  classNames = require("classnames"); 
+  
   classnames = this.classNames({
     timer: true
   });
 
-  componentDidUpdate(prevProps) {
-    if (prevProps.seconds !== this.props.seconds && this.props.seconds > 0) {
-      this.props.decrementSeconds();
-    }
-  }
-
   render() {
+    const {seconds} = this.props;
     return (
       <div>
         <p style={{ textAlign: "center" }}>Seconds Remaining</p>
-
-        <Spinner className={this.classnames}>
+        <Spinner className={this.classnames} animation="border">
           <div style={{ textAlign: "center" }}>
-            <span>{this.props.seconds}</span>
+            <span>{seconds}</span>
           </div>
         </Spinner>
       </div>

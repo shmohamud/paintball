@@ -2,14 +2,14 @@
     background-color: rgba(25, 155, 47, 0.938);
     display: flex;
     border-radius: 50%;
-    height: 25px;
-    width: 25px;
+    height: 15px;
+    width: 15px;
 }
 
 .sidebar{
     position: fixed;
-    right: 1em;
-    top: 1em;
+    right: 16px;
+    top: 16px;
 }
 
 .target {
