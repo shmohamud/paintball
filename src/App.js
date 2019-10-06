@@ -5,7 +5,6 @@ import Paintball from "./Paintball";
 import Sidebar from "./Sidebar";
 import Target from "./Target";
 import Timer from "./Timer";
-import { thisExpression } from "@babel/types";
 
 class App extends React.Component {
   state = {
@@ -84,6 +83,7 @@ class App extends React.Component {
       shotCoordinates: []
     });
   };
+
   destroyPaintball = () => {
     const shotCoordinates = this.state.shotCoordinates.slice(1);
     this.setState({
