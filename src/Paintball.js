@@ -4,6 +4,7 @@ var classNames = require("classnames");
 export default class Paintball extends Component {
    
   render() {
+    const { x , y, color } = this.props
     let spanClasses = classNames({
       paintball: true
     })
@@ -13,9 +14,9 @@ export default class Paintball extends Component {
         className={spanClasses}
         style={{
           position: "absolute",
-          backgroundColor: this.props.color,
-          left: this.props.x,
-          top: this.props.y
+          backgroundColor: color,
+          left: x,
+          top: y
         }}
       />
     );
