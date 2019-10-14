@@ -1,0 +1,8 @@
+.paintball {
+    background-color: rgba(25, 155, 47, 0.938);
+    display: flex;
+    border-radius: 50%;
+    height: 15px;
+    width: 15px;
+}
+
