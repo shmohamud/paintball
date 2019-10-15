@@ -5,7 +5,6 @@ var classNames = require("classnames");
 
 export default function Paintball(props) {
   const { x, y, color } = props;
-  console.log(x, y, color);
   let spanClasses = classNames({
     paintball: true
   });
@@ -16,8 +15,8 @@ export default function Paintball(props) {
       style={{
         position: "absolute",
         backgroundColor: color,
-        left: x,
-        top: y
+        left: x+"px",
+        top: y+"px"
       }}
     />
   );
@@ -25,6 +24,6 @@ export default function Paintball(props) {
 
 Paintball.propTypes = {
   color: PropTypes.string,
-  x: PropTypes.number,
-  y: PropTypes.number
+  x: PropTypes.string,
+  y: PropTypes.string
 };

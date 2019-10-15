@@ -5,7 +5,7 @@ import "./Sidebar.css";
 var classNames = require("classnames");
 
 export default function Sidebar(props) {
-  const { ammo, numShots, points, resetGame } = props;
+  const { ammo, shotCount, points, resetGame } = props;
   let divClasses = classNames({
     sidebar: true
   });
@@ -20,7 +20,7 @@ export default function Sidebar(props) {
         />
         <Card.Body>
           <Card.Title>Shot Count</Card.Title>
-          <Card.Text>{numShots}</Card.Text>
+          <Card.Text>{shotCount}</Card.Text>
           <Card.Title>Points</Card.Title>
           <Card.Text>{points}</Card.Text>
           <Card.Title>Ammo</Card.Title>
