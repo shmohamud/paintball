@@ -36,7 +36,7 @@ export default function Sidebar(props) {
 
 Sidebar.propTypes = {
   ammo: PropTypes.string,
-  numShots: PropTypes.number,
+  shotCount: PropTypes.number,
   points: PropTypes.number,
   resetGame: PropTypes.func.isRequired
 };

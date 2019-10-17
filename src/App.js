@@ -1,47 +1,37 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import Paintball from "./components/Paintball/Paintball";
 import Sidebar from "./components/Sidebar/Sidebar";
 import Target from "./components/Target/Target";
-import Timer from "./components/Timer /Timer";
+import CountdownClock from "./components/CountdownClock/CountdownClock";
 
 function App() {
-  const [ammunition, setAmmo] = useState("OOOO");
-  const [x, setShotX] = useState(0);
-  const [y, setShotY] = useState(0);
-  let [shotCount, setCount] = useState(0);
+  const [x, setX] = useState("");
+  const [y, setY] = useState("");
+  const [ammunition, setAmmo] = useState("O O O O");
+  const [shotCount, setCount] = useState(0);
   const [points, setPoints] = useState(0);
-  const [secondsRemaining, setSeconds] = useState(15);
-  let [shotCoordinates, setShotCoords] = useState([]);
+  const [shotCoordinates, setShotCoords] = useState([]);
   const [targetCoordinates, setTargetCoords] = useState(["20em", "35em"]);
 
   useEffect(() =>
-    window.addEventListener(
-      "click",
-      e => onShootPaintball(e))
-      ,
-      []
-    )
+    window.addEventListener("click", e => {
+      const { clientX, clientY } = e;
+      setAmmo(
+        ammunition
+          .split("")
+          .slice(1)
+          .join("")
+      );
+      setCount(shotCount + 1);
+      setX(clientX);
+      setY(clientY);
 
-  const onShootPaintball = e => {
-    console.log("IN ON SHOOT PAINTBALL");
-    debugger;
-    const { clientX, clientY } = e;
-    console.log("AMMUNITION IN STATE BEFORE SPENDING ONE ROUND: ", ammunition);
-    setAmmo(
-      ammunition
-        .split("")
-        .slice(1)
-        .join("")
-    );
-    setCount(shotCount + 1);
-
-    console.log("AMMUNITION IN STATE AFTER SPENDING ROUND :", ammunition)
-    setShotX(clientX);
-    setShotY(clientY);
-    const newCoordsAndColor = [clientX, clientY, setPaintColor()];
-    const newShotCoords = [...shotCoordinates.slice(), ...newCoordsAndColor];
-    setShotCoords(newShotCoords);
-  };
+      setShotCoords([
+        ...shotCoordinates.slice(),
+        [clientX, clientY, setPaintColor()]
+      ]);
+    })
+  );
 
   const setPaintColor = () => {
     const colors = ["blue", "black", "green", "orange", "purple", "red"];
@@ -52,15 +42,12 @@ function App() {
   };
 
   const onTargetHit = () => {
-    console.log("IN ON TARGET HIT");
     const { top, right } = getRandomCoordPair();
     setPoints(points + 10);
     setTargetCoords([top, right]);
   };
 
   const getRandomCoordPair = () => {
-    console.log("IN GET RANDOM COORD PAIR");
-    debugger;
     const max = 35;
     const min = 5;
     const randNumTop =
@@ -70,34 +57,25 @@ function App() {
     return { top: randNumTop, right: randNumRight };
   };
 
-  const decrementSeconds = () => {
-    if (secondsRemaining) {
-      setTimeout(() => {
-        setSeconds(() => secondsRemaining - 1);
-      }, 1000);
-    }
-  };
-
   const handleClickResetGame = () => {
     alert("Reset Game!");
   };
   return (
     <div>
-      {
-        shotCoordinates.map(shotCoords => 
+      {shotCoordinates.map((shotCoords, index) => (
         <Paintball
-          x={shotCoordinates[0].toString()}
-          y={shotCoordinates[1].toString()}
-          color={shotCoordinates[2]}
+          x={shotCoords[0].toString()}
+          y={shotCoords[1].toString()}
+          color={shotCoords[2]}
+          key={index}
         />
-        )
-      }
+      ))}
       <Target
         top={targetCoordinates[0]}
         right={targetCoordinates[1]}
         targetHit={onTargetHit}
       />
-      <Timer decrementSeconds={decrementSeconds} seconds={secondsRemaining} />
+      <CountdownClock />
       <Sidebar
         ammo={ammunition}
         shotCount={shotCount}
